@@ -1,6 +1,8 @@
 # PseudoRoku
 議事録をいい感じにレンダリングしてくれるツール
 
+[npm](https://www.npmjs.com/package/pseudoroku)
+
 # 使用例
 [2022年セキュリティ・キャンプL3（Cコンパイラゼミ）ログ](https://sozysozbot.github.io/seccamp-2022-c-compiler-seminar/)
 
@@ -67,6 +69,7 @@ template.html:
 ```
 
 ```js
+import { PseudoRoku } from 'pseudoroku';
 new PseudoRoku({
 	input: "./log_all.txt",
 	censor_list: "./censor_list.tsv",
