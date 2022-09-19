@@ -33,6 +33,8 @@ int main(void) {
 ```
 阿部「」
 $VIDEO「video.mp4」
+江藤「ところで、これお願いできます？」
+$JOIN{阿部}{鈴木}「無理です」
 ````
 
 censor_list.tsv:
