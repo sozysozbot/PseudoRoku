@@ -160,15 +160,15 @@ export class PseudoRoku {
 						// ↓ .split
 						// ["foo", "bar", "baz"]
 						const names = elems[i].name.slice("$JOIN{".length, -1).split("}{");
-						ans += "\t" + names.map(n => getLinkedIconFromUncensoredName(n, 48 / names.length)).join("") + `
+						ans += "\t<div>" + names.map(n => getLinkedIconFromUncensoredName(n, 48 / names.length)).join("") + `</div>
 	<div class="name_and_content">
-		<span class="name">${names.length > 5 ? "一同" : names.map(n => escapeHTML(censor(n))).join("・")}</span>
+		<span class="name">${names.length > 5 ? "一同" : names.map(n => getLinkedNameFromUncensoredName(n)).join("・")}</span>
 		${elems[i].content.map(renderContent).join("\n\t\t")}
 	</div>`;
 					} else {
-						ans += `\t${getLinkedIconFromUncensoredName(elems[i].name, 48)}
+						ans += `\t<div>${getLinkedIconFromUncensoredName(elems[i].name, 48)}</div>
 	<div class="name_and_content">
-		${getLinkedNameFromUncensoredName(elems[i].name)}
+		<span class="name">${getLinkedNameFromUncensoredName(elems[i].name)}</span>
 		${elems[i].content.map(renderContent).join("\n\t\t")}
 	</div>`;
 					}
@@ -181,9 +181,9 @@ export class PseudoRoku {
 		function getLinkedNameFromUncensoredName(name: string) {
 			const profileURL = profile_lookup_table.filter(k => k[0] === escapeHTML(censor(name)))[0]?.[1].trim();
 			if (!profileURL) {
-				return `<span class="name">${escapeHTML(censor(name))}</span>`
+				return `${escapeHTML(censor(name))}`
 			} else {
-				return `<a class="name" href="${profileURL}" target="_blank" rel="noopener noreferrer">${escapeHTML(censor(name))}</a>`
+				return `<a href="${profileURL}" target="_blank" rel="noopener noreferrer">${escapeHTML(censor(name))}</a>`
 			}
 		}
 
@@ -244,11 +244,11 @@ export class PseudoRoku {
 		h3 {
 			margin-top: 15px;
 		}
-		a.name {
+		.name a {
 			text-decoration: none;
 			color: inherit;
 		}
-		a.name:hover {
+		.name a:hover {
 			text-decoration: underline;
 		}
 		div.name_and_content {
