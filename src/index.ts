@@ -254,6 +254,9 @@ export class PseudoRoku {
 		div.name_and_content {
 			padding-left: 10px;
 		}
+		pre {
+			white-space: pre-wrap;
+		}
 	</style>`)
 				.replace(/\$content/g, elems_to_html(group_same_person(lines_to_elems(lines))))
 		);
