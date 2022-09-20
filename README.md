@@ -1,6 +1,8 @@
 # PseudoRoku
 議事録をいい感じにレンダリングしてくれるツール
 
+[npm](https://www.npmjs.com/package/pseudoroku)
+
 # 使用例
 [2022年セキュリティ・キャンプL3（Cコンパイラゼミ）ログ](https://sozysozbot.github.io/seccamp-2022-c-compiler-seminar/)
 
@@ -33,6 +35,8 @@ int main(void) {
 ```
 阿部「」
 $VIDEO「video.mp4」
+江藤「ところで、これお願いできます？」
+$JOIN{阿部}{鈴木}「無理です」
 ````
 
 censor_list.tsv:
@@ -65,6 +69,7 @@ template.html:
 ```
 
 ```js
+import { PseudoRoku } from 'pseudoroku';
 new PseudoRoku({
 	input: "./log_all.txt",
 	censor_list: "./censor_list.tsv",
