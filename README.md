@@ -78,6 +78,7 @@ new PseudoRoku({
 	profile_lookup: './profile_lookup.tsv',
 	getIconPathFromCensoredName: name => `icons/${name}.png`, // 出力された HTML からの相対パスで指定
 	getMediaPath: media => `media/${media}`, // 出力された HTML からの相対パスで指定
+	hidePoweredBy: false, // true にするとこのリポジトリへのリンクを出力しなくなります
 }).doEverything();
 ```
 

@@ -108,6 +108,7 @@ export class PseudoRoku {
 	output: string;
 	profile_lookup: string;
 	template: string;
+	show_powered_by: boolean;
 	getIconPathFromCensoredName: (censored_name: string) => string;
 	getMediaPath: (media: string) => string = (media: string) => `media/${media}`;
 
@@ -119,6 +120,7 @@ export class PseudoRoku {
 		template: string,
 		getIconPathFromCensoredName: (censored_name: string) => string,
 		getMediaPath?: (media: string) => string,
+		hidePoweredBy?: boolean,
 	}) {
 		this.input = o.input;
 		this.censor_list = o.censor_list;
@@ -126,6 +128,7 @@ export class PseudoRoku {
 		this.profile_lookup = o.profile_lookup;
 		this.template = o.template;
 		this.getIconPathFromCensoredName = o.getIconPathFromCensoredName;
+		this.show_powered_by = !o.hidePoweredBy;
 		if (o.getMediaPath) {
 			this.getMediaPath = o.getMediaPath;
 		}
@@ -223,7 +226,7 @@ export class PseudoRoku {
 
 		fs.writeFileSync(this.output,
 			fs.readFileSync(this.template, { encoding: 'utf8', flag: 'r' })
-				.replace(/\$css/g, `<style>
+				.replace(/\$css/g, `<meta name="viewport" content="width=device-width">\n<style>
 		img.icon {
 			border-radius: 50%;
 		}
@@ -257,8 +260,16 @@ export class PseudoRoku {
 		pre {
 			white-space: pre-wrap;
 		}
+		body {
+			text-size-adjust: 100%;
+			-webkit-text-size-adjust: 100%;
+		}
 	</style>`)
-				.replace(/\$content/g, elems_to_html(group_same_person(lines_to_elems(lines))))
+				.replace(/\$content/g, elems_to_html(group_same_person(lines_to_elems(lines))) +  (this.show_powered_by ? `\n<div style="font-size: 70%; display: flex; justify-content: center;">
+	<div>
+		Powered by <a href="https://github.com/sozysozbot/PseudoRoku">PseudoRoku</a>, which is designed by <a href="https://twitter.com/hsjoihs">hsjoihs</a>. <a href="https://github.com/sozysozbot/PseudoRoku/issues">Feel free to report any issues</a>.
+	</div>
+</div>` : ""))
 		);
 	}
 }
