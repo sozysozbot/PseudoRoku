@@ -4,7 +4,9 @@
 [npm](https://www.npmjs.com/package/pseudoroku)
 
 # 使用例
-[2022年セキュリティ・キャンプL3（Cコンパイラゼミ）ログ](https://sozysozbot.github.io/seccamp-2022-c-compiler-seminar/)
+- [2022年セキュリティ・キャンプL3（Cコンパイラゼミ）ログ](https://sozysozbot.github.io/seccamp-2022-c-compiler-seminar/)
+
+- [「ELF を吐く C コンパイラを Rui 本の方式で作る」ログ](https://sozysozbot.github.io/c_to_elf_compiler/log.html)
 
 # 使い方
 
