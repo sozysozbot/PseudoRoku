@@ -268,6 +268,7 @@ export class PseudoRoku {
 			-webkit-text-size-adjust: 100%;
 		}
 		.permalink {
+			margin-left: 15px;
 			padding: .2em .6em .3em;
 			font-size: 75%;
 			font-weight: 700;
@@ -277,7 +278,7 @@ export class PseudoRoku {
 			white-space: nowrap;
 			vertical-align: center;
 			border-radius: .25em;
-			background-color: $color4;
+			background-color: #666666;
 			text-decoration: none;
 			visibility: hidden;
 		}
