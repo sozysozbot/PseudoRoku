@@ -1,4 +1,5 @@
 import * as fs from 'fs'
+import md5 from 'md5';
 
 type Elem = { name: string, content: string, lang?: string };
 type Content = { type: "plaintext" | "url" | "blockquote" | "image" | "html" | "video", data: string } | { type: "source", data: string, lang: string };
@@ -156,6 +157,8 @@ export class PseudoRoku {
 					ans += `<h3 class="date">${escapeHTML(censor(elems[i].content[0].data))}</h3>\n`;
 				} else {
 					ans += `<div class="one_person">\n`;
+					const rendered_content = elems[i].content.map(renderContent).join("\n\t\t");
+					const html_element_id = md5(rendered_content);
 					if (elems[i].name.startsWith("$JOIN")) {
 						// "$JOIN{foo}{bar}{baz}"
 						// ↓ .slice
@@ -164,15 +167,15 @@ export class PseudoRoku {
 						// ["foo", "bar", "baz"]
 						const names = elems[i].name.slice("$JOIN{".length, -1).split("}{");
 						ans += "\t<div>" + names.map(n => getLinkedIconFromUncensoredName(n, 48 / names.length)).join("") + `</div>
-	<div class="name_and_content">
-		<span class="name">${names.length > 5 ? "一同" : names.map(n => getLinkedNameFromUncensoredName(n)).join("・")}</span>
-		${elems[i].content.map(renderContent).join("\n\t\t")}
+	<div class="name_and_content" onmouseover="document.getElementById('permalink_${html_element_id}').style.visibility = 'visible'" onmouseout="document.getElementById('permalink_${html_element_id}').style.visibility = 'hidden'">
+		<span class="name">${names.length > 5 ? "一同" : names.map(n => getLinkedNameFromUncensoredName(n)).join("・")}</span><a id="permalink_${html_element_id}" href="#${html_element_id}" class="permalink">¶</a>
+		${rendered_content}
 	</div>`;
 					} else {
 						ans += `\t<div>${getLinkedIconFromUncensoredName(elems[i].name, 48)}</div>
-	<div class="name_and_content">
-		<span class="name">${getLinkedNameFromUncensoredName(elems[i].name)}</span>
-		${elems[i].content.map(renderContent).join("\n\t\t")}
+	<div class="name_and_content" onmouseover="document.getElementById('permalink_${html_element_id}').style.visibility = 'visible'" onmouseout="document.getElementById('permalink_${html_element_id}').style.visibility = 'hidden'">
+		<span class="name">${getLinkedNameFromUncensoredName(elems[i].name)}</span><a id="permalink_${html_element_id}" href="#${html_element_id}" class="permalink">¶</a>
+		${rendered_content}
 	</div>`;
 					}
 					ans += `\n</div>\n`;
@@ -263,6 +266,20 @@ export class PseudoRoku {
 		body {
 			text-size-adjust: 100%;
 			-webkit-text-size-adjust: 100%;
+		}
+		.permalink {
+			padding: .2em .6em .3em;
+			font-size: 75%;
+			font-weight: 700;
+			line-height: 1;
+			color: #fff;
+			text-align: center;
+			white-space: nowrap;
+			vertical-align: center;
+			border-radius: .25em;
+			background-color: $color4;
+			text-decoration: none;
+			visibility: hidden;
 		}
 	</style>`)
 				.replace(/\$content/g, elems_to_html(group_same_person(lines_to_elems(lines))) +  (this.show_powered_by ? `\n<div style="font-size: 70%; display: flex; justify-content: center;">
