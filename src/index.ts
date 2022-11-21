@@ -168,13 +168,13 @@ export class PseudoRoku {
 						const names = elems[i].name.slice("$JOIN{".length, -1).split("}{");
 						ans += "\t<div>" + names.map(n => getLinkedIconFromUncensoredName(n, 48 / names.length)).join("") + `</div>
 	<div class="name_and_content" onmouseover="document.getElementById('permalink_${html_element_id}').style.visibility = 'visible'" onmouseout="document.getElementById('permalink_${html_element_id}').style.visibility = 'hidden'">
-		<span class="name">${names.length > 5 ? "一同" : names.map(n => getLinkedNameFromUncensoredName(n)).join("・")}</span><a id="permalink_${html_element_id}" href="#${html_element_id}" class="permalink">¶</a>
+		<span class="name">${names.length > 5 ? "一同" : names.map(n => getLinkedNameFromUncensoredName(n)).join("・")}</span><a id="permalink_${html_element_id}" href="#permalink_${html_element_id}" class="permalink">¶</a>
 		${rendered_content}
 	</div>`;
 					} else {
 						ans += `\t<div>${getLinkedIconFromUncensoredName(elems[i].name, 48)}</div>
 	<div class="name_and_content" onmouseover="document.getElementById('permalink_${html_element_id}').style.visibility = 'visible'" onmouseout="document.getElementById('permalink_${html_element_id}').style.visibility = 'hidden'">
-		<span class="name">${getLinkedNameFromUncensoredName(elems[i].name)}</span><a id="permalink_${html_element_id}" href="#${html_element_id}" class="permalink">¶</a>
+		<span class="name">${getLinkedNameFromUncensoredName(elems[i].name)}</span><a id="permalink_${html_element_id}" href="#permalink_${html_element_id}" class="permalink">¶</a>
 		${rendered_content}
 	</div>`;
 					}
